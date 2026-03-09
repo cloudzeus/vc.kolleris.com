@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ["nodejs_22", "npm-10_x"]
+
+[phases.build]
+cmds = [
+  "npm ci",
+  "npx prisma generate",
+  "npm run build",
+  "cp -r .next/static .next/standalone/.next/static",
+  "cp -r public .next/standalone/public || mkdir -p .next/standalone/public",
+]
+
+[start]
+cmd = "node .next/standalone/server.js"
